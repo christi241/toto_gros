@@ -9,16 +9,13 @@ pipeline {
 
       NEXUS_VERSION = "nexus3"
       NEXUS_PROTOCOL = "http"
-      NEXUS_URL = "172.18.0.2:8081"
+      NEXUS_URL = "172.18.0.3:8081"
       NEXUS_REPOSITORY = "repoJenkinsLy"
       NEXUS_CREDENTIAL_ID = "nexusCredential"
       ARTIFACT_VERSION = "${BUILD_NUMBER}"
-    def mvn = tool 'M3';
-
   }
-
+  
   stages {
-
     stage('Git Check out') {
       steps{
         checkout scm
@@ -35,31 +32,10 @@ pipeline {
       steps{
         withSonarQubeEnv('sonar-server') {
         sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=toto-gros -Dsonar.projectName='toto-gros'"
-
-    stage('SCM') {
-      steps {
-        checkout scm
-
       }
     }
-    
-    stage('Compile') {
-      steps {
-        script {
-          sh "${mvn}/bin/mvn compile"
-        }
-      }
-    }
-
-    stage('SonarQube Analysis') {
-      steps {
-        withSonarQubeEnv('sonar-server') {
-          sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=toto-gros -Dsonar.projectName='toto-gros'"
-        }
-      }
-    }
+     
   }
-
 
   stage("publish to nexus") {
             steps {
@@ -103,6 +79,3 @@ pipeline {
         }
  }
 }
-
-
-  
