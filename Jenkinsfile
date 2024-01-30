@@ -5,7 +5,6 @@ pipeline {
   }
 
   environment {
-<<<<<<< HEAD
       def mvn = tool 'M3'
 
       NEXUS_VERSION = "nexus3"
@@ -14,13 +13,12 @@ pipeline {
       NEXUS_REPOSITORY = "repoJenkinsLy"
       NEXUS_CREDENTIAL_ID = "nexusCredential"
       ARTIFACT_VERSION = "${BUILD_NUMBER}"
-=======
     def mvn = tool 'M3';
->>>>>>> 065aff539d8857eed85f6451bd86b8df812a02d1
+
   }
 
   stages {
-<<<<<<< HEAD
+
     stage('Git Check out') {
       steps{
         checkout scm
@@ -37,11 +35,11 @@ pipeline {
       steps{
         withSonarQubeEnv('sonar-server') {
         sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=toto-gros -Dsonar.projectName='toto-gros'"
-=======
+
     stage('SCM') {
       steps {
         checkout scm
->>>>>>> 065aff539d8857eed85f6451bd86b8df812a02d1
+
       }
     }
     
@@ -61,7 +59,7 @@ pipeline {
       }
     }
   }
-<<<<<<< HEAD
+
 
   stage("publish to nexus") {
             steps {
@@ -105,6 +103,7 @@ pipeline {
         }
  }
 }
-=======
+
 }
->>>>>>> 065aff539d8857eed85f6451bd86b8df812a02d1
+
+  
